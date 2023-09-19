@@ -1,0 +1,25 @@
+section.app {
+  display: flex;
+  flex-direction: column;
+}
+
+section.app .phone-view {
+  border: 1px solid #ddd;
+  margin: auto;
+}
+section.app .phone-view img {
+  width: 100%;
+  height: 100%;
+}
+section.app .button-list {
+  display: flex;
+  justify-content: center;
+  padding: 10px 0;
+}
+.btn-text {
+  cursor: pointer;
+  color: #3478f6;
+}
+.btn-text + .btn-text {
+  margin-left: 12px;
+}
