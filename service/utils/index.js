@@ -4,10 +4,10 @@ const path = require("path");
 const { stdout, stderr } = require("process");
 
 function deleteOldImage(name) {
-  const names = fs.readdirSync("./static/");
+  const names = fs.readdirSync("./static/images/");
   names.forEach((_name) => {
     if (_name === name) return;
-    fs.unlinkSync(path.join(process.cwd(), `/static/${_name}`));
+    fs.unlinkSync(path.join(process.cwd(), `/images/${_name}`));
   });
 }
 /**
@@ -18,7 +18,7 @@ function Screencap() {
   return new Promise((resolve, reject) => {
     const now = Date.now();
     exec(
-      `adb exec-out screencap -p > ./static/${now}.png`,
+      `adb exec-out screencap -p > ./static/images/${now}.png`,
       (err, stdout, stderr) => {
         if (err) {
           return reject(err || stderr);
@@ -26,7 +26,7 @@ function Screencap() {
         const name = `${now}.png`;
         try {
           deleteOldImage(name);
-          resolve(`/static/${name}`);
+          resolve(`/images/${name}`);
         } catch (e) {
           reject(e);
         }

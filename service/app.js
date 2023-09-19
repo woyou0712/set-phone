@@ -18,7 +18,7 @@ app.use(bodyParser.json());
 
 app.use(router);
 
-app.use("/static", express.static("./static"));
+app.use("/", express.static("./static"));
 
 app.use((err, req, res, next) => {
   res.send(err);
