@@ -1,6 +1,8 @@
 import Axios from "axios";
+import getBaseUrl from "./getBaseUrl";
 
-const request = Axios.create({ baseURL: "http://127.0.0.1:16888" });
+
+const request = Axios.create({ baseURL: getBaseUrl() });
 
 request.interceptors.request.use((config) => {
   return config;

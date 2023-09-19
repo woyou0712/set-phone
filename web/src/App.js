@@ -1,6 +1,14 @@
 import React, { useEffect, useMemo, useState } from "react";
-import { clickPhone, getPath, getSize } from "./api";
+import {
+  clickPhone,
+  getPath,
+  getSize,
+  setKeyword,
+  setSwipe,
+  setUnlock,
+} from "./api";
 import "./App.css";
+import getBaseUrl from "./getBaseUrl";
 
 const viewSize = { x: 390, y: 844 };
 
@@ -13,15 +21,31 @@ function App() {
   }, [size]);
 
   const setPath = (url) => {
-    _setPath("http://127.0.0.1:16888" + url);
+    _setPath(getBaseUrl() + url);
   };
 
   useEffect(() => {
+    onPath();
     getSize().then(({ data }) => {
       setSize(data);
     });
-    getPath().then(({ data }) => setPath(data));
   }, []);
+
+  const onPath = () => {
+    getPath().then(({ data }) => setPath(data));
+  };
+
+  const onKeyword = (key) => {
+    setKeyword({ key }).then(({ data }) => setPath(data));
+  };
+
+  const onSwipe = ({ startX, startY, endX, endY }) => {
+    setSwipe({ startX, startY, endX, endY }).then(({ data }) => setPath(data));
+  };
+
+  const onUnlock = () => {
+    setUnlock().then(({ data }) => setPath(data));
+  };
 
   return (
     <section className="app">
@@ -38,15 +62,18 @@ function App() {
             const y = parseInt(offsetY * ratio.y);
             clickPhone({ x, y }).then(({ data }) => setPath(data));
           }}
-          onMouseDown={(e) => {
-            console.log(e);
-          }}
         />
       </div>
       <div className="button-list">
-        <div className="btn-text">电源键</div>
-        <div className="btn-text">刷新页面</div>
-        <div className="btn-text">Home键</div>
+        <div className="btn-text" onClick={() => onKeyword(3)}>
+          Home键
+        </div>
+        <div className="btn-text" onClick={onUnlock}>
+          电源解锁
+        </div>
+        <div className="btn-text" onClick={onPath}>
+          刷新页面
+        </div>
       </div>
     </section>
   );

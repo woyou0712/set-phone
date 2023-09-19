@@ -1,6 +1,7 @@
 const { exec } = require("child_process");
 const fs = require("fs");
 const path = require("path");
+const { stdout, stderr } = require("process");
 
 function deleteOldImage(name) {
   const names = fs.readdirSync("./static/");
@@ -52,4 +53,22 @@ function TotalControl(adb) {
   });
 }
 
-module.exports = { Screencap, TotalControl };
+function unlock() {
+  return new Promise((resolve, reject) => {
+    exec("adb shell input keyevent 26", (err, stdout, stderr) => {
+      if (err || stderr) {
+        return reject(err || stderr);
+      }
+      exec("adb shell input swipe 100 1000 100 100", (err, stdout, stderr) => {
+        if (err || stderr) {
+          return reject(err || stderr);
+        }
+        Screencap()
+          .then((v) => resolve(v))
+          .catch((e) => reject(e));
+      });
+    });
+  });
+}
+
+module.exports = { Screencap, TotalControl, unlock };

@@ -1,9 +1,18 @@
 const express = require("express");
 const { error, success } = require("../utils/send");
-const { TotalControl, Screencap } = require("../utils");
+const { TotalControl, Screencap, unlock } = require("../utils");
 const { exec } = require("child_process");
 
 const router = express.Router();
+
+// 电源解锁
+router.post("/unlock", (req, res, next) => {
+  unlock()
+    .then((url) => {
+      res.send(success(url));
+    })
+    .catch((e) => next(error(e)));
+});
 
 // 按键
 router.post("/keyword", (req, res, next) => {

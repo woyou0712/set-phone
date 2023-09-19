@@ -9,5 +9,17 @@ export function getPath() {
 }
 
 export function clickPhone(params) {
-  return request.post("/clicl", params);
+  return request.post("/click", params);
+}
+
+export function setKeyword(params) {
+  return request.post("/keyword", params);
+}
+
+export function setSwipe(params) {
+  return request.post("/swipe", params);
+}
+
+export function setUnlock() {
+  return request.post("/unlock");
 }
