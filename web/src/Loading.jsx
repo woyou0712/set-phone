@@ -3,7 +3,7 @@ import React from "react";
 import PropTypes from "prop-types";
 import loadingIcon from "./loading.png";
 
-import "./index.less";
+import "./loading.css";
 
 function Loading() {
   return (

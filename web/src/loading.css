@@ -1,0 +1,31 @@
+section.loading-page {
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 1000;
+  width: 100vw;
+  height: 100vh;
+  background-color: rgba(0, 0, 0, 0.6);
+  display: flex;
+}
+
+section.loading-page .loading-icon {
+  margin: auto;
+  width: 70px;
+  height: 70px;
+  display: flex;
+  animation: loading 2s infinite linear;
+}
+section.loading-page .loading-icon img {
+  width: 100%;
+  margin: auto;
+}
+
+@keyframes loading {
+  0% {
+    transform: rotate(0);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
