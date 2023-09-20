@@ -1,13 +1,12 @@
 const { exec } = require("child_process");
 const fs = require("fs");
 const path = require("path");
-const { stdout, stderr } = require("process");
 
 function deleteOldImage(name) {
   const names = fs.readdirSync("./static/images/");
   names.forEach((_name) => {
     if (_name === name) return;
-    fs.unlinkSync(path.join(process.cwd(), `/images/${_name}`));
+    fs.unlinkSync(path.join(process.cwd(), `/static/images/${_name}`));
   });
 }
 /**
