@@ -5,6 +5,7 @@ import {
   getSize,
   setKeyword,
   setSwipe,
+  setText,
   setUnlock,
 } from "./api";
 import "./App.css";
@@ -17,6 +18,10 @@ function App() {
   const [loading, setLoading] = useState(false);
   const [path, _setPath] = useState("");
   const [size, setSize] = useState([]);
+
+  const [open, setOpen] = useState(false);
+  const [content, setContent] = useState("");
+
   const ratio = useMemo(() => {
     if (!size?.length) return { x: 1, y: 1 };
     return { x: size[0] / viewSize.x, y: size[1] / viewSize.y };
@@ -53,8 +58,16 @@ function App() {
       .catch(() => setLoading(false));
   };
 
-  const onSwipe = ({ startX, startY, endX, endY }) => {
-    setSwipe({ startX, startY, endX, endY }).then(({ data }) => setPath(data));
+  const onInputText = () => {
+    if (!content) return;
+    setLoading(true);
+    setText({ text: content })
+      .then(({ data }) => {
+        setPath(data);
+        setLoading(false);
+        setOpen(false);
+      })
+      .catch(() => setLoading(false));
   };
 
   const onUnlock = () => {
@@ -98,10 +111,22 @@ function App() {
         <div className="btn-text" onClick={onUnlock}>
           电源解锁
         </div>
+        <div className="btn-text" onClick={() => setOpen(true)}>
+          输入文本
+        </div>
         <div className="btn-text" onClick={onPath}>
           刷新页面
         </div>
       </div>
+      {open ? (
+        <div className="input-body">
+          <input value={content} onChange={(v) => setContent(v.target.value)} />
+          <div className="btns">
+            <button onClick={onInputText}>确定</button>
+            <button onClick={() => setOpen(false)}>取消</button>
+          </div>
+        </div>
+      ) : null}
     </section>
   );
 }

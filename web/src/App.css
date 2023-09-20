@@ -23,3 +23,28 @@ section.app .button-list {
 .btn-text + .btn-text {
   margin-left: 12px;
 }
+.input-body {
+  position: fixed;
+  width: 100vw;
+  height: 100vh;
+  z-index: 100;
+  background-color: rgba(0, 0, 0, 0.6);
+  padding: 50px 20px 0 20px;
+  display: flex;
+  flex-direction: column;
+}
+.input-body input {
+  height: 32px;
+  line-height: 30px;
+  width: calc(100% - 42px);
+}
+.input-body .btns {
+  width: calc(100% - 40px);
+  display: flex;
+  justify-content: space-around;
+  margin-top: 10px;
+}
+.input-body .btns button {
+  width: 150px;
+  height: 32px;
+}

@@ -23,3 +23,7 @@ export function setSwipe(params) {
 export function setUnlock() {
   return request.post("/unlock");
 }
+
+export function setText() {
+  return request.post("/settext");
+}
