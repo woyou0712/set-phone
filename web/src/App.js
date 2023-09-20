@@ -9,8 +9,9 @@ import {
 } from "./api";
 import "./App.css";
 import getBaseUrl from "./getBaseUrl";
+import Loading from "./Loading";
 
-const viewSize = { x: 390, y: 844 };
+const viewSize = { x: 390, y: 750 };
 
 function App() {
   const [path, _setPath] = useState("");
@@ -49,6 +50,7 @@ function App() {
 
   return (
     <section className="app">
+      <Loading />
       <div
         className="phone-view"
         style={{ width: `${viewSize.x}px`, height: `${viewSize.y}px` }}
